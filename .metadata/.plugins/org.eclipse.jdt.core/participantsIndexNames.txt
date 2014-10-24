@@ -1,5 +1,0 @@
-INDEX VERSION 1.126
-E:\lazyDog\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1155153380.index
-\LazyDog\src\main\java
-E:\lazyDog\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1178546556.index
-\lazyDog\src\main\resources
