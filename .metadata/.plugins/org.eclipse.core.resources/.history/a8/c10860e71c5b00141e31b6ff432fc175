@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="productCommission" namespace="/" extends="struts-default">
+        <action name="productCommissionAction_*" class="productCommissionAction" method="{1}">
+			<result name="toBillUI">/WEB-INF/jsp/System_Product/bill.jsp</result>
+			<result name="RedirectToBillUI" type="redirectAction">productCommissionAction_toBillUI</result>
+        </action>
+    </package>
+</struts>

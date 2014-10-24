@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+    Checkstyle-Configuration: Achievo
+    Description: none
+-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <property name="severity" value="warning"/>
+    <property name="localeCountry" value="US"/>
+    <property name="localeLanguage" value="en"/>
+    <module name="TreeWalker">
+        <property name="tabWidth" value="2"/>
+        <module name="MagicNumber">
+            <property name="ignoreNumbers" value="-1, 0, 1"/>
+        </module>
+        <module name="RegexpHeader">
+            <property name="header" value="^/\*$\n^ \* Copyright (\([Cc]\) )?20[0-9]{2}.*$\n^ \*([^/].*)?$\n^ \*/$\n"/>
+            <property name="multiLines" value="3"/>
+        </module>
+        <module name="ModifierOrder"/>
+        <module name="JavadocType">
+            <property name="scope" value="package"/>
+            <property name="authorFormat" value="\S"/>
+        </module>
+        <module name="JavadocMethod">
+            <property name="scope" value="package"/>
+            <property name="allowUndeclaredRTE" value="true"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="logLoadErrors" value="true"/>
+            <property name="suppressLoadErrors" value="true"/>
+        </module>
+        <module name="JavadocVariable">
+            <property name="scope" value="package"/>
+        </module>
+        <module name="JavadocStyle">
+            <property name="scope" value="package"/>
+        </module>
+        <module name="PackageName">
+            <property name="severity" value="error"/>
+            <property name="format" value="^(dcx\.(taco)|com\.achievo|com\.daimler|de\.unioninvestment\.lms)(\.[a-z][a-z0-9]*)+$"/>
+        </module>
+        <module name="TypeName">
+            <property name="severity" value="error"/>
+            <property name="format" value="^[A-Z]([a-z0-9][A-Z]?)*[a-z0-9]$"/>
+        </module>
+        <module name="MemberName">
+            <property name="severity" value="error"/>
+            <property name="format" value="^m[A-Z]([a-z0-9][A-Z]?)*[a-z0-9]$"/>
+        </module>
+      <!-- Detect parameter names that look like members -->
+        <module name="ParameterName">
+            <property name="severity" value="error"/>
+          <!-- exclude m[A-Z]....-->
+            <property name="format"
+              value="^([a-ln-z]([A-Z]?[a-z0-9])*|m|m([a-z0-9][A-Z]?)*[a-z0-9])$"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="severity" value="error"/>
+            <property name="format" value="^s[A-Z]([a-z0-9][A-Z]?)*[a-z0-9]$"/>
+        </module>
+        <module name="MethodName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LocalFinalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="AvoidStarImport">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="IllegalImport">
+            <property name="illegalPkgs"
+              value="com.brokat, sun, com.ibm, com.sun"/>
+        </module>
+        <module name="RedundantImport">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="UnusedImports">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="LineLength">
+            <property name="ignorePattern" value="(.*\*.*home=)|(.*\*.*business=)|(\$Id: .*)|(.*\*.*\{@link)|(.*\*.*@see )|(.*\*.*remote-business-interface)"/>
+            <property name="max" value="100"/>
+        </module>
+        <module name="MethodLength">
+            <property name="max" value="100"/>
+        </module>
+        <module name="FileLength">
+            <property name="max" value="2500"/>
+        </module>
+        <module name="AnonInnerLength">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="10"/>
+        </module>
+        <module name="TabCharacter">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="ARRAY_INIT, BNOT, DEC, DOT, INC, UNARY_MINUS, UNARY_PLUS"/>
+        </module>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="WhitespaceAfter">
+            <property name="tokens" value="COMMA, TYPECAST"/>
+        </module>
+        <module name="WhitespaceAround">
+            <property name="tokens" value="ASSIGN,BAND,BAND_ASSIGN,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,COLON,DIV,DIV_ASSIGN,EQUAL,GE,GT,LAND,LCURLY,LE,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE,LOR,LT,MINUS,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,RCURLY,SL,SLIST,SL_ASSIGN,SR,SR_ASSIGN,STAR,STAR_ASSIGN,LITERAL_ASSERT"/>
+        </module>
+        <module name="LeftCurly">
+            <property name="severity" value="error"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="RightCurly">
+            <property name="severity" value="error"/>
+            <property name="option" value="alone"/>
+        </module>
+        <module name="NeedBraces"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <module name="CovariantEquals">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DoubleCheckedLocking">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="FinalLocalVariable">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="HiddenField"/>
+        <module name="IllegalInstantiation">
+            <property name="classes" value="java.lang.Boolean, java.util.Calendar"/>
+        </module>
+        <module name="InnerAssignment"/>
+        <module name="MissingSwitchDefault">
+            <property name="severity" value="error"/>
+        </module>
+      <!-- Triggers false positives in inner classes,
+             might also be related to load errors?
+        <module name="RedundantThrows">
+            <property name="allowUnchecked" value="true"/>
+            <property name="allowSubclasses" value="true"/>
+            <property name="logLoadErrors" value="true"/>
+            <property name="suppressLoadErrors" value="true"/>
+        </module>  -->
+        <module name="SimplifyBooleanExpression">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="SimplifyBooleanReturn">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="StringLiteralEquality">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="SuperClone">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SuperFinalize">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalCatch">
+            <property name="illegalClassNames"
+              value="java.lang.RuntimeException,
+              java.lang.Exception, java.lang.Error, java.lang.Throwable"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="JUnitTestCase"/>
+        <module name="ReturnCount">
+            <property name="max" value="1"/>
+        </module>
+        <module name="IllegalType">
+            <property name="severity" value="error"/>
+            <property name="illegalClassNames" value="java.util.Hashtable, java.util.Vector"/>
+        </module>
+        <module name="IllegalType"/>
+        <module name="DeclarationOrder"/>
+        <module name="ParameterAssignment"/>
+        <module name="VisibilityModifier"/>
+        <module name="FinalClass">
+            <property name="severity" value="info"/>
+        </module>
+        <module name="InterfaceIsType"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="CyclomaticComplexity">
+            <property name="max" value="12"/>
+        </module>
+        <module name="CyclomaticComplexity">
+            <property name="severity" value="error"/>
+            <property name="max" value="20"/>
+        </module>
+        <module name="TodoComment">
+            <property name="severity" value="info"/>
+            <property name="format" value="(TODO|CHECKME)"/>
+        </module>
+        <module name="TodoComment">
+            <property name="severity" value="warning"/>
+            <property name="format" value="(FIXME)"/>
+        </module>
+        <module name="TodoComment">
+            <property name="format" value="(DOCUMENT ME|To change the template)"/>
+        </module>
+        <module name="UpperEll"/>
+        <module name="ArrayTypeStyle">
+            <property name="severity" value="info"/>
+        </module>
+<!-- Disabled because we have some missalignements.
+        <module name="Indentation">
+            <property name="basicOffset" value="2"/>
+            <property name="caseIndent" value="2"/>
+        </module>  -->
+        <module name="GenericIllegalRegexp">
+            <property name="severity" value="error"/>
+            <property name="format" value="[^\x0A\x0C\x20-\x7E]"/>
+            <property name="message"
+              value="Illegal character in source file only US-ASCII characters are permitted."/>
+        </module>
+    </module>
+    <module name="PackageHtml">
+        <property name="severity" value="info"/>
+    </module>
+    <module name="NewlineAtEndOfFile"/>
+</module>

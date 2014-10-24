@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.goldlinked.persistence.JMTProductIssuerMapper" >
+  <resultMap id="BaseResultMap" type="cn.goldlinked.entity.JMTProductIssuer" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SHORT_NAME" property="shortName" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="CATAGORY" property="catagory" jdbcType="INTEGER" />
+    <result column="LOGO_IMAGE_URL" property="logoImageUrl" jdbcType="VARCHAR" />
+    <result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SHORT_NAME, FULL_NAME, CATAGORY, LOGO_IMAGE_URL, INTRODUCTION, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmt_product_issuer
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 查询全部发行机构 -->
+	<select id="selectAllProductIssuer" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List"/>
+	from jmt_product_issuer 
+	</select>
+	<!-- 根据类别查询发行机构 -->
+	<select id="selectIssuerByCategory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List"/>
+	from jmt_product_issuer jps where jps.CATAGORY=#{catagory,jdbcType=INTEGER} 
+	</select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jmt_product_issuer
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.goldlinked.entity.JMTProductIssuer" >
+    insert into jmt_product_issuer (ID, SHORT_NAME, FULL_NAME, 
+      CATAGORY, LOGO_IMAGE_URL, INTRODUCTION, 
+      STATUS)
+    values (#{id,jdbcType=INTEGER}, #{shortName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, 
+      #{catagory,jdbcType=INTEGER}, #{logoImageUrl,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.goldlinked.entity.JMTProductIssuer" >
+    insert into jmt_product_issuer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="shortName != null" >
+        SHORT_NAME,
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="catagory != null" >
+        CATAGORY,
+      </if>
+      <if test="logoImageUrl != null" >
+        LOGO_IMAGE_URL,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="catagory != null" >
+        #{catagory,jdbcType=INTEGER},
+      </if>
+      <if test="logoImageUrl != null" >
+        #{logoImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.goldlinked.entity.JMTProductIssuer" >
+    update jmt_product_issuer
+    <set >
+      <if test="shortName != null" >
+        SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="catagory != null" >
+        CATAGORY = #{catagory,jdbcType=INTEGER},
+      </if>
+      <if test="logoImageUrl != null" >
+        LOGO_IMAGE_URL = #{logoImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.goldlinked.entity.JMTProductIssuer" >
+    update jmt_product_issuer
+    set SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      CATAGORY = #{catagory,jdbcType=INTEGER},
+      LOGO_IMAGE_URL = #{logoImageUrl,jdbcType=VARCHAR},
+      INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

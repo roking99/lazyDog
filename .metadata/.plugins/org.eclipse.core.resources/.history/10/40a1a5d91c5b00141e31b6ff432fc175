@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.goldlinked.persistence.JMTProductMapper" >
+  <resultMap id="BaseResultMap" type="cn.goldlinked.entity.JMTProduct" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SHORT_NAME" property="shortName" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ISSUER_ID" property="productIssuerId" jdbcType="INTEGER" />
+    <result column="YIELD_RATE_BY_YEAR" property="yieldRateByYear" jdbcType="VARCHAR" />
+    <result column="MIN_YIELD_RATE_BY_YEAR" property="minYieldRateByYear" jdbcType="DECIMAL" />
+    <result column="MAX_YIELD_RATE_BY_YEAR" property="maxYieldRateByYear" jdbcType="DECIMAL" />
+    <result column="DURATION" property="duration" jdbcType="INTEGER" />
+    <result column="THRESHOLD_VALUE" property="thresholdValue" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="FUND_PURPOSE_TYPE" property="fundPurposeType" jdbcType="INTEGER" />
+    <result column="CATAGORY" property="catagory" jdbcType="INTEGER" />
+    <result column="ISSUED_SIZE" property="issuedSize" jdbcType="DECIMAL" />
+    <result column="SALED_VALUE" property="saledValue" jdbcType="DECIMAL" />
+    <result column="ISSUED_LOCATION" property="issuedLocation" jdbcType="VARCHAR" />
+    <result column="INVESTMENT_MODE" property="investmentMode" jdbcType="INTEGER" />
+    <result column="PROFIT_TYPE" property="profitType" jdbcType="INTEGER" />
+    <result column="PROFIT_DISTRIBUTION" property="profitDistribution" jdbcType="INTEGER" />
+    <result column="PROFIT_DETAIL" property="profitDetail" jdbcType="VARCHAR" />
+    <result column="SALE_START_DATE" property="saleStartDate" jdbcType="TIMESTAMP" />
+    <result column="SALE_END_DATE" property="saleEndDate" jdbcType="TIMESTAMP" />
+    <result column="PUBLISHED_DATE" property="publishedDate" jdbcType="TIMESTAMP" />
+    <result column="FOUND_PURPOSE_DESCRIPTION" property="foundPurposeDescription" jdbcType="VARCHAR" />
+    <result column="RISK_CONTROL" property="riskControl" jdbcType="VARCHAR" />
+    <result column="EDITOR_ID" property="editorId" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATETIME" property="updatedDatetime" jdbcType="TIMESTAMP" />
+    <result column="AUDITOR_ID" property="auditorId" jdbcType="VARCHAR" />
+    <result column="AUDIT_DATETIME" property="auditDatetime" jdbcType="TIMESTAMP" />
+    <result column="LOGO_IMAGE_URL" property="logoImageUrl" jdbcType="VARCHAR" />
+    <result column="MAX_RATE" property="maxRate" jdbcType="DECIMAL" />
+    <result column="COMMISSION_COUNT" property="commissionCount" jdbcType="INTEGER" />
+    <result column="PRODUCT_ISSUER_NAME" property="productIssuerName" jdbcType="VARCHAR" />
+    <result column="RATE" property="rate" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SHORT_NAME, FULL_NAME, PRODUCT_ISSUER_ID, YIELD_RATE_BY_YEAR, MIN_YIELD_RATE_BY_YEAR, 
+    MAX_YIELD_RATE_BY_YEAR, DURATION, THRESHOLD_VALUE, STATUS, FUND_PURPOSE_TYPE, CATAGORY, 
+    ISSUED_SIZE, SALED_VALUE, ISSUED_LOCATION, INVESTMENT_MODE, PROFIT_TYPE, PROFIT_DISTRIBUTION, 
+    PROFIT_DETAIL, SALE_START_DATE, SALE_END_DATE, PUBLISHED_DATE, FOUND_PURPOSE_DESCRIPTION, 
+    RISK_CONTROL, EDITOR_ID, UPDATED_DATETIME, AUDITOR_ID, AUDIT_DATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select count(jpc.PRODUCT_ID) COMMISSION_COUNT, 
+					max(jpc.RATE) MAX_RATE,
+					jpi.LOGO_IMAGE_URL LOGO_IMAGE_URL,
+					jpi.SHORT_NAME PRODUCT_ISSUER_NAME,
+					jpc.RATE RATE,
+					jp.* 
+  	from 
+  				jmt_product jp,
+  				jmt_product_commission jpc,
+  				jmt_product_issuer jpi
+		where jpc.PRODUCT_ID=jp.ID
+		and jp.PRODUCT_ISSUER_ID=jpi.ID
+   	    and jp.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询全部产品 -->
+  <select id="selectAllProduct" resultMap="BaseResultMap" >
+		 select 
+    <include refid="Base_Column_List" />
+   		from jmt_product 
+  </select>
+  <!-- 根据发布人查询产品 -->
+  <select id="selectProductByPublisherId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select 
+   		jp.*
+   		from jmt_product jp,jmt_user ju,jmt_product_commission jpc
+		where jpc.PRODUCT_ID=jp.ID
+		and   jpc.PUBLISHER_ID=ju.ID
+		and   ju.ID=#{publisherId,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询产品的佣金点数 -->
+  <select id="selectAllProduct4Rate" resultMap="BaseResultMap" >
+		select  jp.*,jps.SHORT_NAME PRODUCT_ISSUER_NAME ,jpc.RATE RATE
+		from 
+		jmt_product jp,jmt_product_issuer jps,jmt_product_commission jpc
+		where jp.PRODUCT_ISSUER_ID=jps.id
+		and jpc.PRODUCT_ID=jp.ID
+  </select>
+  <!-- 根据产品的发行机构查询产品 -->
+  <select id="selectProductByIssuer" resultMap="BaseResultMap" >
+		select  
+		   <include refid="Base_Column_List" />
+		from jmt_product jp
+		where jp.PRODUCT_ISSUER_ID=#{productIssuerId,jdbcType=INTEGER}
+  </select>
+  <!-- 根据产品名模糊查询产品 -->
+  <select id="selectProductByProductName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select  
+		   <include refid="Base_Column_List" />
+		from jmt_product jp
+		where jp.FULL_NAME like  "%"#{productName}"%" 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jmt_product
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.goldlinked.entity.JMTProduct" >
+    insert into jmt_product (ID, SHORT_NAME, FULL_NAME, 
+      PRODUCT_ISSUER_ID, YIELD_RATE_BY_YEAR, MIN_YIELD_RATE_BY_YEAR, 
+      MAX_YIELD_RATE_BY_YEAR, DURATION, THRESHOLD_VALUE, 
+      STATUS, FUND_PURPOSE_TYPE, CATAGORY, 
+      ISSUED_SIZE, SALED_VALUE, ISSUED_LOCATION, 
+      INVESTMENT_MODE, PROFIT_TYPE, PROFIT_DISTRIBUTION, 
+      PROFIT_DETAIL, SALE_START_DATE, SALE_END_DATE, 
+      PUBLISHED_DATE, FOUND_PURPOSE_DESCRIPTION, 
+      RISK_CONTROL, EDITOR_ID, UPDATED_DATETIME, 
+      AUDITOR_ID, AUDIT_DATETIME)
+    values (#{id,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, 
+      #{productIssuerId,jdbcType=INTEGER}, #{yieldRateByYear,jdbcType=VARCHAR}, #{minYieldRateByYear,jdbcType=DECIMAL}, 
+      #{maxYieldRateByYear,jdbcType=DECIMAL}, #{duration,jdbcType=INTEGER}, #{thresholdValue,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{fundPurposeType,jdbcType=INTEGER}, #{catagory,jdbcType=INTEGER}, 
+      #{issuedSize,jdbcType=DECIMAL}, #{saledValue,jdbcType=DECIMAL}, #{issuedLocation,jdbcType=VARCHAR}, 
+      #{investmentMode,jdbcType=INTEGER}, #{profitType,jdbcType=INTEGER}, #{profitDistribution,jdbcType=INTEGER}, 
+      #{profitDetail,jdbcType=VARCHAR}, #{saleStartDate,jdbcType=TIMESTAMP}, #{saleEndDate,jdbcType=TIMESTAMP}, 
+      #{publishedDate,jdbcType=TIMESTAMP}, #{foundPurposeDescription,jdbcType=VARCHAR}, 
+      #{riskControl,jdbcType=VARCHAR}, #{editorId,jdbcType=VARCHAR}, #{updatedDatetime,jdbcType=TIMESTAMP}, 
+      #{auditorId,jdbcType=VARCHAR}, #{auditDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.goldlinked.entity.JMTProduct" >
+    insert into jmt_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="shortName != null" >
+        SHORT_NAME,
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME,
+      </if>
+      <if test="productIssuerId != null" >
+        PRODUCT_ISSUER_ID,
+      </if>
+      <if test="yieldRateByYear != null" >
+        YIELD_RATE_BY_YEAR,
+      </if>
+      <if test="minYieldRateByYear != null" >
+        MIN_YIELD_RATE_BY_YEAR,
+      </if>
+      <if test="maxYieldRateByYear != null" >
+        MAX_YIELD_RATE_BY_YEAR,
+      </if>
+      <if test="duration != null" >
+        DURATION,
+      </if>
+      <if test="thresholdValue != null" >
+        THRESHOLD_VALUE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="fundPurposeType != null" >
+        FUND_PURPOSE_TYPE,
+      </if>
+      <if test="catagory != null" >
+        CATAGORY,
+      </if>
+      <if test="issuedSize != null" >
+        ISSUED_SIZE,
+      </if>
+      <if test="saledValue != null" >
+        SALED_VALUE,
+      </if>
+      <if test="issuedLocation != null" >
+        ISSUED_LOCATION,
+      </if>
+      <if test="investmentMode != null" >
+        INVESTMENT_MODE,
+      </if>
+      <if test="profitType != null" >
+        PROFIT_TYPE,
+      </if>
+      <if test="profitDistribution != null" >
+        PROFIT_DISTRIBUTION,
+      </if>
+      <if test="profitDetail != null" >
+        PROFIT_DETAIL,
+      </if>
+      <if test="saleStartDate != null" >
+        SALE_START_DATE,
+      </if>
+      <if test="saleEndDate != null" >
+        SALE_END_DATE,
+      </if>
+      <if test="publishedDate != null" >
+        PUBLISHED_DATE,
+      </if>
+      <if test="foundPurposeDescription != null" >
+        FOUND_PURPOSE_DESCRIPTION,
+      </if>
+      <if test="riskControl != null" >
+        RISK_CONTROL,
+      </if>
+      <if test="editorId != null" >
+        EDITOR_ID,
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME,
+      </if>
+      <if test="auditorId != null" >
+        AUDITOR_ID,
+      </if>
+      <if test="auditDatetime != null" >
+        AUDIT_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="productIssuerId != null" >
+        #{productIssuerId,jdbcType=INTEGER},
+      </if>
+      <if test="yieldRateByYear != null" >
+        #{yieldRateByYear,jdbcType=VARCHAR},
+      </if>
+      <if test="minYieldRateByYear != null" >
+        #{minYieldRateByYear,jdbcType=DECIMAL},
+      </if>
+      <if test="maxYieldRateByYear != null" >
+        #{maxYieldRateByYear,jdbcType=DECIMAL},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdValue != null" >
+        #{thresholdValue,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fundPurposeType != null" >
+        #{fundPurposeType,jdbcType=INTEGER},
+      </if>
+      <if test="catagory != null" >
+        #{catagory,jdbcType=INTEGER},
+      </if>
+      <if test="issuedSize != null" >
+        #{issuedSize,jdbcType=DECIMAL},
+      </if>
+      <if test="saledValue != null" >
+        #{saledValue,jdbcType=DECIMAL},
+      </if>
+      <if test="issuedLocation != null" >
+        #{issuedLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentMode != null" >
+        #{investmentMode,jdbcType=INTEGER},
+      </if>
+      <if test="profitType != null" >
+        #{profitType,jdbcType=INTEGER},
+      </if>
+      <if test="profitDistribution != null" >
+        #{profitDistribution,jdbcType=INTEGER},
+      </if>
+      <if test="profitDetail != null" >
+        #{profitDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="saleStartDate != null" >
+        #{saleStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="saleEndDate != null" >
+        #{saleEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishedDate != null" >
+        #{publishedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foundPurposeDescription != null" >
+        #{foundPurposeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControl != null" >
+        #{riskControl,jdbcType=VARCHAR},
+      </if>
+      <if test="editorId != null" >
+        #{editorId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDatetime != null" >
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorId != null" >
+        #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDatetime != null" >
+        #{auditDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.goldlinked.entity.JMTProduct" >
+    update jmt_product
+    <set >
+      <if test="shortName != null" >
+        SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="productIssuerId != null" >
+        PRODUCT_ISSUER_ID = #{productIssuerId,jdbcType=INTEGER},
+      </if>
+      <if test="yieldRateByYear != null" >
+        YIELD_RATE_BY_YEAR = #{yieldRateByYear,jdbcType=VARCHAR},
+      </if>
+      <if test="minYieldRateByYear != null" >
+        MIN_YIELD_RATE_BY_YEAR = #{minYieldRateByYear,jdbcType=DECIMAL},
+      </if>
+      <if test="maxYieldRateByYear != null" >
+        MAX_YIELD_RATE_BY_YEAR = #{maxYieldRateByYear,jdbcType=DECIMAL},
+      </if>
+      <if test="duration != null" >
+        DURATION = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="thresholdValue != null" >
+        THRESHOLD_VALUE = #{thresholdValue,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fundPurposeType != null" >
+        FUND_PURPOSE_TYPE = #{fundPurposeType,jdbcType=INTEGER},
+      </if>
+      <if test="catagory != null" >
+        CATAGORY = #{catagory,jdbcType=INTEGER},
+      </if>
+      <if test="issuedSize != null" >
+        ISSUED_SIZE = #{issuedSize,jdbcType=DECIMAL},
+      </if>
+      <if test="saledValue != null" >
+        SALED_VALUE = #{saledValue,jdbcType=DECIMAL},
+      </if>
+      <if test="issuedLocation != null" >
+        ISSUED_LOCATION = #{issuedLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentMode != null" >
+        INVESTMENT_MODE = #{investmentMode,jdbcType=INTEGER},
+      </if>
+      <if test="profitType != null" >
+        PROFIT_TYPE = #{profitType,jdbcType=INTEGER},
+      </if>
+      <if test="profitDistribution != null" >
+        PROFIT_DISTRIBUTION = #{profitDistribution,jdbcType=INTEGER},
+      </if>
+      <if test="profitDetail != null" >
+        PROFIT_DETAIL = #{profitDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="saleStartDate != null" >
+        SALE_START_DATE = #{saleStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="saleEndDate != null" >
+        SALE_END_DATE = #{saleEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishedDate != null" >
+        PUBLISHED_DATE = #{publishedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foundPurposeDescription != null" >
+        FOUND_PURPOSE_DESCRIPTION = #{foundPurposeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControl != null" >
+        RISK_CONTROL = #{riskControl,jdbcType=VARCHAR},
+      </if>
+      <if test="editorId != null" >
+        EDITOR_ID = #{editorId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorId != null" >
+        AUDITOR_ID = #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDatetime != null" >
+        AUDIT_DATETIME = #{auditDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.goldlinked.entity.JMTProduct" >
+    update jmt_product
+    set SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+      FULL_NAME = #{fullName,jdbcType=VARCHAR},
+      PRODUCT_ISSUER_ID = #{productIssuerId,jdbcType=INTEGER},
+      YIELD_RATE_BY_YEAR = #{yieldRateByYear,jdbcType=VARCHAR},
+      MIN_YIELD_RATE_BY_YEAR = #{minYieldRateByYear,jdbcType=DECIMAL},
+      MAX_YIELD_RATE_BY_YEAR = #{maxYieldRateByYear,jdbcType=DECIMAL},
+      DURATION = #{duration,jdbcType=INTEGER},
+      THRESHOLD_VALUE = #{thresholdValue,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=INTEGER},
+      FUND_PURPOSE_TYPE = #{fundPurposeType,jdbcType=INTEGER},
+      CATAGORY = #{catagory,jdbcType=INTEGER},
+      ISSUED_SIZE = #{issuedSize,jdbcType=DECIMAL},
+      SALED_VALUE = #{saledValue,jdbcType=DECIMAL},
+      ISSUED_LOCATION = #{issuedLocation,jdbcType=VARCHAR},
+      INVESTMENT_MODE = #{investmentMode,jdbcType=INTEGER},
+      PROFIT_TYPE = #{profitType,jdbcType=INTEGER},
+      PROFIT_DISTRIBUTION = #{profitDistribution,jdbcType=INTEGER},
+      PROFIT_DETAIL = #{profitDetail,jdbcType=VARCHAR},
+      SALE_START_DATE = #{saleStartDate,jdbcType=TIMESTAMP},
+      SALE_END_DATE = #{saleEndDate,jdbcType=TIMESTAMP},
+      PUBLISHED_DATE = #{publishedDate,jdbcType=TIMESTAMP},
+      FOUND_PURPOSE_DESCRIPTION = #{foundPurposeDescription,jdbcType=VARCHAR},
+      RISK_CONTROL = #{riskControl,jdbcType=VARCHAR},
+      EDITOR_ID = #{editorId,jdbcType=VARCHAR},
+      UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      AUDITOR_ID = #{auditorId,jdbcType=VARCHAR},
+      AUDIT_DATETIME = #{auditDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

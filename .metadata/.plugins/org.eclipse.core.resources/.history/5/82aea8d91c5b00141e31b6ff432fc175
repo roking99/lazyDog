@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.goldlinked.persistence.JMTOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.goldlinked.entity.JMTOrder" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="VARCHAR" />
+    <result column="PRODUCT_COMMISSION_ID" property="productCommissionId" jdbcType="VARCHAR" />
+    <result column="BUYER_ID" property="buyerId" jdbcType="VARCHAR" />
+    <result column="COMMISSION" property="commission" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATED_DATETIME" property="createdDatetime" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_DATETIME" property="updatedDatetime" jdbcType="TIMESTAMP" />
+    <result column="SETTLE_MODE" property="settleMode" jdbcType="INTEGER" />
+    <result column="PAY_MODE" property="payMode" jdbcType="INTEGER" />
+    <result column="CONTRACT_TRANSFER_MODE" property="contractTransferMode" jdbcType="INTEGER" />
+    <result column="EXPRESS_IMAGE_URL" property="expressImageUrl" jdbcType="VARCHAR" />
+    <result column="PRODUCT_RECEIPT_IMAGE_URL" property="productReceiptImageUrl" jdbcType="VARCHAR" />
+    <result column="COMMISSION_RECEIPT_IMAGE_URL" property="commissionReceiptImageUrl" jdbcType="VARCHAR" />
+    <result column="IS_GOT_COMMISSION" property="isGotCommission" jdbcType="INTEGER" />
+    <result column="EXPRESS_NUM" property="expressNum" jdbcType="VARCHAR" />
+    <result column="PUBLISHER_NAME" property="publisherName" jdbcType="VARCHAR" />
+    <result column="BUYER_NAME" property="buyerName" jdbcType="VARCHAR" />
+    <result column="PUBLISHER_ID" property="publisherId" jdbcType="VARCHAR" />
+    <result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+    <result column="RATE" property="rate" jdbcType="DECIMAL" />    
+    <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+    <result column="DURATION" property="duration" jdbcType="INTEGER" />
+    <result column="COMMISSION_VALUE" property="commissionValue" jdbcType="DECIMAL" />
+    <result column="COMMISSION_ID" property="commissionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ORDER_NUM, PRODUCT_COMMISSION_ID, BUYER_ID, COMMISSION, STATUS, CREATED_DATETIME, 
+    UPDATED_DATETIME, SETTLE_MODE, PAY_MODE, CONTRACT_TRANSFER_MODE, EXPRESS_IMAGE_URL, 
+    PRODUCT_RECEIPT_IMAGE_URL, COMMISSION_RECEIPT_IMAGE_URL, IS_GOT_COMMISSION, EXPRESS_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmt_order
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmt_order
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jmt_order
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.goldlinked.entity.JMTOrder" >
+    insert into jmt_order (ID, ORDER_NUM, PRODUCT_COMMISSION_ID, 
+      BUYER_ID, COMMISSION, STATUS, 
+      CREATED_DATETIME, UPDATED_DATETIME, SETTLE_MODE, 
+      PAY_MODE, CONTRACT_TRANSFER_MODE, EXPRESS_IMAGE_URL, 
+      PRODUCT_RECEIPT_IMAGE_URL, COMMISSION_RECEIPT_IMAGE_URL, 
+      IS_GOT_COMMISSION, EXPRESS_NUM)
+    values (#{id,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{productCommissionId,jdbcType=VARCHAR}, 
+      #{buyerId,jdbcType=VARCHAR}, #{commission,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, 
+      #{createdDatetime,jdbcType=TIMESTAMP}, #{updatedDatetime,jdbcType=TIMESTAMP}, #{settleMode,jdbcType=INTEGER}, 
+      #{payMode,jdbcType=INTEGER}, #{contractTransferMode,jdbcType=INTEGER}, #{expressImageUrl,jdbcType=VARCHAR}, 
+      #{productReceiptImageUrl,jdbcType=VARCHAR}, #{commissionReceiptImageUrl,jdbcType=VARCHAR}, 
+      #{isGotCommission,jdbcType=INTEGER}, #{expressNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.goldlinked.entity.JMTOrder" >
+    insert into jmt_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="productCommissionId != null" >
+        PRODUCT_COMMISSION_ID,
+      </if>
+      <if test="buyerId != null" >
+        BUYER_ID,
+      </if>
+      <if test="commission != null" >
+        COMMISSION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdDatetime != null" >
+        CREATED_DATETIME,
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME,
+      </if>
+      <if test="settleMode != null" >
+        SETTLE_MODE,
+      </if>
+      <if test="payMode != null" >
+        PAY_MODE,
+      </if>
+      <if test="contractTransferMode != null" >
+        CONTRACT_TRANSFER_MODE,
+      </if>
+      <if test="expressImageUrl != null" >
+        EXPRESS_IMAGE_URL,
+      </if>
+      <if test="productReceiptImageUrl != null" >
+        PRODUCT_RECEIPT_IMAGE_URL,
+      </if>
+      <if test="commissionReceiptImageUrl != null" >
+        COMMISSION_RECEIPT_IMAGE_URL,
+      </if>
+      <if test="isGotCommission != null" >
+        IS_GOT_COMMISSION,
+      </if>
+      <if test="expressNum != null" >
+        EXPRESS_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productCommissionId != null" >
+        #{productCommissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settleMode != null" >
+        #{settleMode,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        #{payMode,jdbcType=INTEGER},
+      </if>
+      <if test="contractTransferMode != null" >
+        #{contractTransferMode,jdbcType=INTEGER},
+      </if>
+      <if test="expressImageUrl != null" >
+        #{expressImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productReceiptImageUrl != null" >
+        #{productReceiptImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionReceiptImageUrl != null" >
+        #{commissionReceiptImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isGotCommission != null" >
+        #{isGotCommission,jdbcType=INTEGER},
+      </if>
+      <if test="expressNum != null" >
+        #{expressNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.goldlinked.entity.JMTOrder" >
+    update jmt_order
+    <set >
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productCommissionId != null" >
+        PRODUCT_COMMISSION_ID = #{productCommissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null" >
+        BUYER_ID = #{buyerId,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        COMMISSION = #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settleMode != null" >
+        SETTLE_MODE = #{settleMode,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        PAY_MODE = #{payMode,jdbcType=INTEGER},
+      </if>
+      <if test="contractTransferMode != null" >
+        CONTRACT_TRANSFER_MODE = #{contractTransferMode,jdbcType=INTEGER},
+      </if>
+      <if test="expressImageUrl != null" >
+        EXPRESS_IMAGE_URL = #{expressImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productReceiptImageUrl != null" >
+        PRODUCT_RECEIPT_IMAGE_URL = #{productReceiptImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionReceiptImageUrl != null" >
+        COMMISSION_RECEIPT_IMAGE_URL = #{commissionReceiptImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isGotCommission != null" >
+        IS_GOT_COMMISSION = #{isGotCommission,jdbcType=INTEGER},
+      </if>
+      <if test="expressNum != null" >
+        EXPRESS_NUM = #{expressNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.goldlinked.entity.JMTOrder" >
+    update jmt_order
+    set ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      PRODUCT_COMMISSION_ID = #{productCommissionId,jdbcType=VARCHAR},
+      BUYER_ID = #{buyerId,jdbcType=VARCHAR},
+      COMMISSION = #{commission,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      SETTLE_MODE = #{settleMode,jdbcType=INTEGER},
+      PAY_MODE = #{payMode,jdbcType=INTEGER},
+      CONTRACT_TRANSFER_MODE = #{contractTransferMode,jdbcType=INTEGER},
+      EXPRESS_IMAGE_URL = #{expressImageUrl,jdbcType=VARCHAR},
+      PRODUCT_RECEIPT_IMAGE_URL = #{productReceiptImageUrl,jdbcType=VARCHAR},
+      COMMISSION_RECEIPT_IMAGE_URL = #{commissionReceiptImageUrl,jdbcType=VARCHAR},
+      IS_GOT_COMMISSION = #{isGotCommission,jdbcType=INTEGER},
+      EXPRESS_NUM = #{expressNum,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectOrderByBuyerIdAndStatus" resultMap="BaseResultMap" parameterType="cn.goldlinked.entity.JMTOrder">
+	select ju.REAL_NAME PUBLISHER_NAME,jpc.RATE RATE,jpc.ID COMMISSION_ID,
+	jpc.DURATION DURATION,jpc.AMOUNT AMOUNT,
+	jp.FULL_NAME fullName,
+	jpc.PUBLISHER_ID PUBLISHER_ID,jo.COMMISSION COMMISSION_VALUE,jo.* 
+	from jmt_order jo,jmt_product_commission jpc ,jmt_user ju,jmt_product jp
+	where jo.PRODUCT_COMMISSION_ID=jpc.ID
+	and jpc.PRODUCT_ID=jp.ID
+	and jpc.PUBLISHER_ID=ju.ID
+	and jo.BUYER_ID = #{buyerId,jdbcType=VARCHAR}
+	and jo.STATUS=#{status,jdbcType=INTEGER}
+  </select>
+  <select id="selectOrderByPublisherIdAndStatus" resultMap="BaseResultMap" parameterType="cn.goldlinked.entity.JMTOrder">
+		select ju.REAL_NAME BUYER_NAME,jpc.RATE RATE,jpc.ID COMMISSION_ID,
+		jpc.DURATION DURATION,jpc.AMOUNT AMOUNT,
+		jp.FULL_NAME fullName,
+		jpc.PUBLISHER_ID PUBLISHER_ID,jo.COMMISSION COMMISSION_VALUE,jo.* 
+		from jmt_order jo,jmt_product_commission jpc ,jmt_user ju,jmt_product jp
+		where jo.PRODUCT_COMMISSION_ID=jpc.ID
+		and jpc.PRODUCT_ID=jp.ID
+		and jo.BUYER_ID=ju.ID
+		and jpc.PUBLISHER_ID = #{publisherId, jdbcType=VARCHAR}
+		and jo.STATUS=#{status,jdbcType=INTEGER}
+  </select>
+</mapper>

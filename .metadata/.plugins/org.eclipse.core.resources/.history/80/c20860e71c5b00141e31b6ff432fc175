@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="issuer" namespace="/" extends="struts-default">
+           <action name="issuerAction_*" class="productIssuerAction" method="{1}">
+			<result name="selelctIssuerByCategory">/WEB-INF/jsp/System_Product/list4category.jsp</result>
+			<result name="toList">/WEB-INF/jsp/System_Issuer/list.jsp</result>
+			<result name="toEditUI">/WEB-INF/jsp/System_Issuer/editUI.jsp</result>
+			<result name="toViewUI">/WEB-INF/jsp/System_Issuer/viewUI.jsp</result>
+			<result name="updateSuccess" type="redirectAction">issuerAction_toListUI</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.goldlinked.persistence.JMTProductCommissionChangeMapper" >
+  <resultMap id="BaseResultMap" type="cn.goldlinked.entity.JMTProductCommissionChange" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PRODUCT_COMMISSION_ID" property="productCommissionId" jdbcType="VARCHAR" />
+    <result column="RATE" property="rate" jdbcType="DECIMAL" />
+    <result column="UPDATED_DATETIME" property="updatedDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PRODUCT_COMMISSION_ID, RATE, UPDATED_DATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jmt_product_commission_change
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jmt_product_commission_change
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.goldlinked.entity.JMTProductCommissionChange" >
+    insert into jmt_product_commission_change (ID, PRODUCT_COMMISSION_ID, RATE, 
+      UPDATED_DATETIME)
+    values (#{id,jdbcType=VARCHAR}, #{productCommissionId,jdbcType=VARCHAR}, #{rate,jdbcType=DECIMAL}, 
+      #{updatedDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.goldlinked.entity.JMTProductCommissionChange" >
+    insert into jmt_product_commission_change
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="productCommissionId != null" >
+        PRODUCT_COMMISSION_ID,
+      </if>
+      <if test="rate != null" >
+        RATE,
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="productCommissionId != null" >
+        #{productCommissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedDatetime != null" >
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.goldlinked.entity.JMTProductCommissionChange" >
+    update jmt_product_commission_change
+    <set >
+      <if test="productCommissionId != null" >
+        PRODUCT_COMMISSION_ID = #{productCommissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        RATE = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedDatetime != null" >
+        UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.goldlinked.entity.JMTProductCommissionChange" >
+    update jmt_product_commission_change
+    set PRODUCT_COMMISSION_ID = #{productCommissionId,jdbcType=VARCHAR},
+      RATE = #{rate,jdbcType=DECIMAL},
+      UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

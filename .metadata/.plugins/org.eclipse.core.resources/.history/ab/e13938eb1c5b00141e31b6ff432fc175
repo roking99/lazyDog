@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<!-- This is a FindBugs exclude file and must be specified by using the 
+     '-exclude' parameter or the config attribute of the jcsummary task -->
+<FindBugsFilter>
+  <Match>
+     <Bug code="DM_FP_NUMBER_CTOR,DM_NUMBER_CTOR" />
+  </Match>
+</FindBugsFilter>

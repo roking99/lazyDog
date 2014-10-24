@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="usermanage" namespace="/" extends="struts-default">
+        <action name="userManage_*" class="userAction" method="{1}">
+			<result name="saveSuccess" type="redirectAction">userManage_selectAllUser</result>
+			<result name="toSaveUserUI">/WEB-INF/jsp/System_User/saveUI.jsp</result>
+			<result name="toUpdateUI">/WEB-INF/jsp/System_User/saveUI.jsp</result>
+			<result name="updateSuccess" type="redirectAction">userManage_selectAllUser</result>
+			<result name="deletSuccess" type="redirectAction">userManage_selectAllUser</result>
+			<result name="selectAll">/WEB-INF/jsp/System_User/list.jsp</result>
+			<result name="toLoginUI">/WEB-INF/jsp/System_User/loginUI.jsp</result>
+			<result name="loginSuccess">/WEB-INF/jsp/index1.jsp</result>
+			<result name="loginError">/WEB-INF/jsp/System_User/loginUI.jsp</result>
+			<result name="logOut">/WEB-INF/jsp/System_User/loginUI.jsp</result>
+			<result name="toChangePWDUI">/WEB-INF/jsp/System_User/updatePWD.jsp</result>
+        </action>
+    </package>
+</struts>

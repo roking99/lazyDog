@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="product" namespace="/" extends="struts-default">
+     <action name="productAction_*" class="productAction" method="{1}">
+			<result name="saveSuccess" type="redirectAction">productAction_selectAllProduct</result>
+			<result name="toViewUI">/WEB-INF/jsp/System_Product/viewUI.jsp</result>
+			<result name="toSaveUI">/WEB-INF/jsp/System_Product/saveUI.jsp</result>
+			<result name="updateSuccess" type="redirectAction">productAction_selectAllProduct</result>
+			<result name="deleteSuccess" type="redirectAction">productAction_selectAllProduct</result>
+			<result name="selectAll">/WEB-INF/jsp/System_Product/list.jsp</result>
+			<result name="toEditUI">/WEB-INF/jsp/System_Product/editUI.jsp</result>
+			<result name="loginSuccess">/WEB-INF/jsp/index1.jsp</result>
+			<result name="toBillUI">/WEB-INF/jsp/System_Product/bill.jsp</result>
+			<result name="toCategoryUI">/WEB-INF/jsp/System_Product/list4category.jsp</result>
+        </action>
+    </package>
+</struts>
