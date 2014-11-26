@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 自定义别名  -->
+		<!-- 实体类 和对应的 别名 -->
+		<typeAlias type="" alias=""/>
+	</typeAliases>
+	
+	<!-- 注册SQL映射文件 -->
+	<mappers>
+		<!--  实体类的mapper文件位置 -->
+		<mapper resource="" />
+	</mappers>
+</configuration>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="D:/javaService/repository/mysql/mysql-connector-java/5.1.28/mysql-connector-java-5.1.28.jar" />
+
+  <context id="jinhaihu" targetRuntime="MyBatis3">
+	<commentGenerator>
+			<!-- 去除自动生成的注释
+				oracle去除注释的时候 会多次产生相同代码 需要手动删除
+			 -->
+			<property name="suppressAllComments" value="true" />
+	</commentGenerator>
+	
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/jinmai" userId="jmkj" password="asd123" />
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="cn.goldlinked.entity" targetProject="goldlinked">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="cn.goldlinked.mappers"  targetProject="goldlinked">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+      
+    <javaClientGenerator type="XMLMAPPER" targetPackage="cn.goldlinked.persistence"  targetProject="goldlinked">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <!-- 为哪些表生成代码 tableName:表名 schema:不用填写,其余属性是禁用例子查询的生成 -->
+		<table schema="" tableName="jmt_product_issuer" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false" domainObjectName="JMTProductIssuer">
+		</table>
+      
+  </context>
+</generatorConfiguration>
