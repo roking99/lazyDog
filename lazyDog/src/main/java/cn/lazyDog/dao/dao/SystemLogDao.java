@@ -1,9 +1,10 @@
-package cn.lazyDog.web;
+package cn.lazyDog.dao.dao;
 /**
  * 
  * @author LuoJin
  * @data   2014年11月26日
  *
  */
-public class SystemIndexController {
+public interface SystemLogDao {
+
 }
