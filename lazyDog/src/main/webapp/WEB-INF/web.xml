@@ -52,11 +52,22 @@
 	<servlet>
 		<servlet-name>CXF</servlet-name>
 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-	</servlet>	
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>LoginServlet</display-name>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>cn.lazyDog.mobileServices.LoginServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>CXF</servlet-name>
 		<!-- 路径还要改下 -->
 		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
 	</servlet-mapping>
 	
 	<!-- 权限过滤器 filter -->
